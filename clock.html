@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JS + CSS Clock</title>
+</head>
+
+<body>
+
+
+    <div class="clock">
+        <div class="clock-face">
+            <div class="circle"></div>
+            <div class="hand hour-hand"></div>
+            <div class="hand min-hand"></div>
+            <div class="hand second-hand"></div>
+        </div>
+    </div>
+
+
+    <style>
+        html {
+            background: #018DED url(https://unsplash.it/1500/1000?image=881&blur=5);
+            background-size: cover;
+            font-family: 'helvetica neue';
+            text-align: center;
+            font-size: 10px;
+        }
+        
+        body {
+            margin: 0;
+            font-size: 2rem;
+            display: flex;
+            flex: 1;
+            min-height: 100vh;
+            align-items: center;
+        }
+        
+        .clock {
+            width: 40rem;
+            height: 40rem;
+            border: 20px solid white;
+            border-radius: 50%;
+            margin: 50px auto;
+            position: relative;
+            padding: 2rem;
+            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1), inset 0 0 0 3px #EFEFEF, inset 0 0 10px black, 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .clock-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform: translateY(-3px);
+            /* account for the height of the clock hands */
+        }
+        
+        .circle {
+            z-index: 1;
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+            background: white;
+            position: fixed;
+            top: 47%;
+            left: 48%;
+        }
+        
+        .hand {
+            width: 50%;
+            height: 6px;
+            background: black;
+            position: absolute;
+            top: 50%;
+            transform-origin: 100%;
+            transform: rotate(90deg);
+            transition: cubic-bezier(0.6, -0.28, 0.735, 0.045) 0.05sec;
+        }
+        
+        .second-hand {
+            background: red;
+            height: 3px;
+        }
+        
+        .min-hand {
+            background: green;
+            height: 5px;
+        }
+    </style>
+
+    <script>
+        var x = document.querySelector(".second-hand");
+        var y = document.querySelector(".min-hand");
+        var z = document.querySelector(".hour-hand");
+
+        function setit() {
+            var today = new Date();
+            var second = today.getSeconds();
+            var tempx = (second * 6) + 90;
+            x.style.transform = `rotate(${tempx}deg)`;
+
+            var second = today.getMinutes();
+            var tempy = (second * 6) + 90;
+            y.style.transform = `rotate(${tempy}deg)`;
+
+            var second = today.getHours();
+            var tempz = (second * 30) + 90;
+            z.style.transform = `rotate(${tempz}deg)`;
+
+        }
+        setInterval(setit, 1000);
+    </script>
+</body>
+
+</html>
